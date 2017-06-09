@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<style>
+			div{
+				width:300px;
+				margin-left:auto;
+				margin-right:auto;
+				margin-top:100px;
+			}
+		</style>
+		<script type="text/javascript" src = "http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<h1> Login </h1>
+			username/email: <br>
+			<input type="text" name = "username" value = ""/>
+			<br>
+			password:<br>
+			<input type="text" name = "password" value = ""/>
+			<br><br>
+			<input type="submit" value = "login" onClick = "login()"/>
+		</div>
+	</body>
+
+	<script type = "text/javascript">
+		function login(){
+		    $.ajax({
+				type: "POST",
+				url: "../login",
+				data: {id:'123',pwd:'234'},
+
+				// ------v-------use it as the callback function
+				success: handleData,
+				error: function(request,error) {
+					alert('123');
+				// console.log(request, error);
+				}
+		    });
+		}
+
+		function handleData(){
+			alert("123");
+		}
+	</script>
+</html>

@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<style>
+			div{
+				width:300px;
+				margin-left:auto;
+				margin-right:auto;
+				margin-top:100px;
+			}
+		</style>
+		<script type = "text/javascript" src='public/asmcrypto.js'></script>
+
+	</head>
+
+	<body>
+		<div>
+			<!-- <form action="/signup" method="POST"> -->
+			<h1> Signup </h1>
+			email: <br>
+			<input type="text" id = "email" value = ""/>
+			<br>
+			password:<br>
+			<input type="text" id = "password" value = ""/>
+			<br><br>
+			<input type="submit" value = "sign up" onClick = "signup()"/>
+			<!-- </form> -->
+		</div>
+	</body>
+
+	<script type = "text/javascript">
+		function signup(){
+			var email = document.getElementById("email").value;
+			var pwd = document.getElementById("password").value;
+			pwd = forge_sha256(pwd);
+
+			var params = {"email":email,"pwd":pwd};
+			params = JSON.stringify(params);
+			alert(params);
+			getText('http://localhost:3000/signup', params,mycallback);
+		}
+
+		getText = function(url,params, callback) // How can I use this callback?
+		{
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function()
+			{
+				if (request.readyState == 4 && request.status == 200)
+				{
+				    callback(request.responseText); // Another callback here
+				}
+			}; 
+			request.open('POST', url);
+			request.setRequestHeader('Content-Type', 'application/json')
+			request.send(params);
+		}
+
+		function mycallback(data) {
+			alert(data);
+		}
+
+		
+
+	</script>
+</html>
