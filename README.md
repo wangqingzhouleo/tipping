@@ -33,7 +33,7 @@ and type the following to terminate
 
 ## API
 ### Sign-up (/signup)
-It is used to post sign-up info to the server to regisiter an account.
+It is used to post sign-up info to the server to regisiter an account. Input parameters are escaped to pervent from SQL injectino.
 
 |input|description|
 |:-:|:-:|
