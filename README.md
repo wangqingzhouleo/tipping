@@ -29,17 +29,17 @@ and type the following to terminate
 
 ### 0.2.1
 ![Progress](http://progressed.io/bar/0)
-- [x] Log-in Modulue
+- [ ] Log-in Modulue
 
 ## API
 ### Sign-up (/signup)
 It is used to post sign-up info to the server to regisiter an account.
 
-|input|description|restriction|
+|input|description|
 |:-:|:-:|:-:|
-|username| username| unique, length between 1 and 25, contain letters, number, "-", "_" and "." only.
-|email|email address| unique, not empty, a valid email address|
-|password|a sha256 string| not empty
+|username| username|
+|email|email address|
+|password|a sha256 string|
 
 |output-code|description|
 |:-:|:-:|
@@ -51,7 +51,6 @@ It is used to post sign-up info to the server to regisiter an account.
 |5| username too long|
 
 
-### login
 
 
 
