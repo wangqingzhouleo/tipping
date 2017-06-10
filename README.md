@@ -1,10 +1,6 @@
-# Tipping (Back End
+- [Installatoin](#Installatoin)
+- [API](#API)
 
-标签（空格分隔）： Gamble
-
----
-
-[TOC]
 ## Installation
 ### Install node.js
 ### Install mySql server
