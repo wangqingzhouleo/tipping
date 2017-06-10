@@ -24,16 +24,16 @@ and type the following to terminate
 ## Milestones
 ### 0.1.0
 ![Progress](http://progressed.io/bar/100)
-[x] Project Setup
-[x] SQL EER Diagram
+- [x] Project Setup
+- [x] SQL EER Diagram
 
 ### 0.1.1
 ![Progress](http://progressed.io/bar/100)
-[x] Sign-up Modulue
+- [x] Sign-up Modulue
 
 ### 0.2.1
 ![Progress](http://progressed.io/bar/0)
-[x] Log-in Modulue
+- [x] Log-in Modulue
 
 ## API
 ### Sign-up (/signup)
