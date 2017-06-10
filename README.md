@@ -36,7 +36,7 @@ and type the following to terminate
 It is used to post sign-up info to the server to regisiter an account.
 
 |input|description|
-|:-:|:-:|:-:|
+|:-:|:-:|
 |username| username|
 |email|email address|
 |password|a sha256 string|
@@ -44,7 +44,7 @@ It is used to post sign-up info to the server to regisiter an account.
 |output-code|description|
 |:-:|:-:|
 |0|success|
-|1|error inserting into mysql. Probably a repeated or empty username or email address| 
+|1|error inserting into mysql.| 
 |2|invalid char in username|
 |3| email address not valid|
 |4| empty username|
