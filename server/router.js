@@ -12,9 +12,14 @@ module.exports = function (app) {
 	});
 
 	app.post('/signup', function(req,res){
+		res.setHeader('Content-Type', 'application/json');
 		let out = require('./user/signup.js')(req,res);
-	    res.send(out);
+	    // res.end(out);
 	});
+
+	app.post('/clearall',function(req,res){
+		let out = require('./clearAll.js')(res);
+	})
 	// login
 	app.get('/login', function(req,res){
 		res.sendFile( path.join(__dirname, '../public/login.html') );

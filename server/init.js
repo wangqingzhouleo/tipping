@@ -15,7 +15,7 @@ module.exports = {
 			return pm2.connectAsync().then(() => {
 				return pm2.startAsync({
 					name: 'tipping',
-					script: 'index.js',
+					script: './server/index.js',
 					cwd: ROOTPATH,
 					output: path.join(ROOTPATH, './logs/tipping-output.log'),
 					error: path.join(ROOTPATH, './logs/tipping-error.log'),
@@ -23,7 +23,6 @@ module.exports = {
 					maxRestarts: 5
 				}).then(() => {
 					spinner.succeed('tipping.js has started successfully.');
-					spinner.succeed(ROOTPATH);
 				}).finally(() => {
 					pm2.disconnect();
 				})
