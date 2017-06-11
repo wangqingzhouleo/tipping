@@ -2,6 +2,9 @@
 global.rootRequire = function(name) {
     return require(__dirname + '/' + name);
 }
+global.usersRequire = function(name) {
+	return require(__dirname + '/users/' + name);
+}
 
 const express = require('express');
 const app = express();
@@ -13,7 +16,7 @@ app.use("/public", express.static(__dirname + "/../public"));
 
 
 require('./router.js')(app);
-// rootRequire('users/user.routes')(app);
+usersRequire('users.routes.js')(app);
 
 
 import {webPara} from '~/configure.js';

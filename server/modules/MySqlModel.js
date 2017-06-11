@@ -1,7 +1,8 @@
 `use strict`
 import {sqlPara} from '~/configure.js';
 const mysql = require('promise-mysql');
-// const Promise = require('bluebird');
+// var sql = requre('sql');
+// sql.setDialect('mysql');
 /*
 	An MySqlModels base abstract class
 	Shall not be instantiate
@@ -19,11 +20,12 @@ class MySqlModel{
 			connection = con;
 		    return connection.query(sql);
 		}).then(function(res){
-			callback(true);
+			callback({"success":true,"body":res});
 			connection.end();
 		}).catch(function(err){
 			console.error(err);
-			callback(false);
+			connection.end();
+			callback({"success":false, "body":err});
 		});
 	}
 	insert(table, fields, values,callback){
