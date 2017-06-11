@@ -28,7 +28,7 @@ and type the following to terminate
 - [x] Sign-up Modulue
 
 ### 0.2.0
-![Progress](http://progressed.io/bar/0)
+![Progress](http://progressed.io/bar/80)
 - [x] Refactoring to OOP
 - [ ] Log-in Modulue
 
@@ -50,6 +50,9 @@ It is used to post sign-up info to the server to regisiter an account. Input par
 |3| email address not valid|
 |4| empty username|
 |5| username too long|
+|6| email already exists|
+|7| username already exists|
+|8| password not correctly hashed|
 
 
 
