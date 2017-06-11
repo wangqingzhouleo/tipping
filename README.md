@@ -56,6 +56,7 @@ It is used to post sign-up info to the server to regisiter an account.
 
 ### Login (/login)
 It is used to post login info to the server to get the uid. Input can be user or email.
+
 |input|description|
 |:-:|:-:|
 |username or email| string |
