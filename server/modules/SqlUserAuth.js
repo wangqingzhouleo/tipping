@@ -64,7 +64,9 @@ class UserAuth extends MySqlModel {
 					this.out.code = 1;
 				return callback(this.errorMessage());
 			});
-
+	}
+	login(callback){
+		
 	}
 }
 

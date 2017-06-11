@@ -3,7 +3,7 @@
 
 
 
-const init = require('./server/init.js');
+const init = require('./server/server.init.js');
 
 require('yargs') // eslint-disable-line no-unused-expressions
 .usage('Usage: node $0 <cmd> [args]')

@@ -11,7 +11,7 @@ module.exports = function (app) {
 
 	app.post('/signup', function(req,res){
 		res.setHeader('Content-Type', 'application/json');
-		let out = require('./controllers/users/signup.js')(req,res);
+		let out = require('./users/controllers/users.auth.js')(req,res);
 	    // res.end(out);
 	});
 
@@ -20,7 +20,7 @@ module.exports = function (app) {
 	})
 	// login
 	app.get('/login', function(req,res){
-		res.sendFile( path.join(__dirname, '../public/login.html') );
+		// res.sendFile( path.join(__dirname, '../public/login.html') );
 	});
 	app.post('/login', function(req,res){
 		res.setHeader('Content-Type', 'application/json');
@@ -29,16 +29,5 @@ module.exports = function (app) {
 
 	app.get('/', function (req, res) {
 		res.send('Hello world');
-	});
-
-	app.get('./about', function (req, res){
-		res.sedn('');
-	})
-	app.get('/customer', function(req, res){
-		res.send('customer page');
-	});
-
-	app.get('/admin', function(req, res){
-		res.send('admin page');
 	});
 };
