@@ -1,21 +1,14 @@
 `use strict`
-const sqlPara = require('../configure.js').getSqlPara();
-const mysql = require('mysql');
+import MySqlModel from '~/MySqlModel';
+const Promise = require('bluebird');
 
 
-
-module.exports=function(req,res){
-	let sqlCon = mysql.createConnection({
-		host:sqlPara.host,
-		user:sqlPara.user,
-		password:sqlPara.pswd,
-		database:sqlPara.db
+module.exports=function(res){
+	let mySqlModel = new MySqlModel();
+	mySqlModel.query("DELETE FROM login WHERE uid < 999999999",function(success){
+		if (success)
+			res.send("Everything deleted");
+		else
+			res.send("Error deleting");
 	});
-
-	// console.log(sqlPara);
-
-	sqlCon.connect();
-	sqlCon.query("DELETE FROM login WHERE uid < 999999999");
-	sqlCon.end();
-	res.send('deleted');
 }

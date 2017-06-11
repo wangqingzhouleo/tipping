@@ -29,7 +29,7 @@ and type the following to terminate
 
 ### 0.2.0
 ![Progress](http://progressed.io/bar/0)
-- [ ] Reflector to OOP
+- [ ] Refactoring to OOP
 - [ ] Log-in Modulue
 
 ## API

@@ -15,6 +15,7 @@ module.exports = {
 			return pm2.connectAsync().then(() => {
 				return pm2.startAsync({
 					name: 'tipping',
+					exec_interpreter: "babel-node",
 					script: './server/index.js',
 					cwd: ROOTPATH,
 					output: path.join(ROOTPATH, './logs/tipping-output.log'),

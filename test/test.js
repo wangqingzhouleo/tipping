@@ -17,6 +17,6 @@ describe("unit test",function(){
         });
     });
 
-    signUp.run()
+    signUp.run();
 
 });	

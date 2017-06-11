@@ -1,8 +1,6 @@
 `use strict`
 
 const path = require('path');
-// ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
 
 
 module.exports = function (app) {
