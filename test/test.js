@@ -6,6 +6,7 @@ const supertest = require("supertest");
 const server = supertest.agent("http://localhost:3000");
 const should = require("should");
 const signUp = require("./signup-test.js")(server,should);
+const login  = require("./login-test.js")(server,should);
 
 describe("unit test",function(){
     it("clear the table",function(done){
@@ -16,7 +17,8 @@ describe("unit test",function(){
             done();
         });
     });
-
     signUp.run();
+    
+    login.run()
 
 });	

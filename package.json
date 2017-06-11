@@ -1,6 +1,6 @@
 {
   "name": "tipping",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "babel-plugin-root-import": "^5.1.0",

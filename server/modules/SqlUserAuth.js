@@ -7,31 +7,28 @@ class UserAuth extends MySqlModel {
 		this.username = userInfo.username;
 		this.email = userInfo.email;
 		this.password = userInfo.pwd;
-		this.userOrEmail = userInfo.userOrEmail;
+		this.loginInditify = userInfo.loginInditify	;
 	}
 	signup(callback){
 		super.insert("login",["username", "email","password"],
 			[this.username,this.email,this.password],callback);
 	}
-	checkUsername(username,callback){
-		let sql = "SELECT `uid` FROM `login` WHERE `username` = '" + username + "' LIMIT 1;";
-		super.query(sql,function(res){
-			if (res.success){
-				callback(res[0].uid);
-			}
-			else{
-				callback(-1);
-			}
-		});
-	}
-	checkEmail(callback){
+	loginByEmail(callback){
 
 	}
-	ckeckPassword(callback){
+	loginByUser(callback){
 
 	}
+
 	login(callback){
-		
+		let userOrEmail = this.loginInditify;
+		let field = userOrEmail.includes("@")? "email" : "username";
+
+
+		let sql = "SELECT `uid`, `password` FROM `login` WHERE `" +  field 
+			+  "` = '" + userOrEmail + "' LIMIT 1;";
+		console.log(sql);
+		super.query(sql,callback);
 	}
 }
 

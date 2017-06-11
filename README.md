@@ -12,10 +12,10 @@ After installing node.js and mySql server, the back end can be setup by
 > npm install
 
 To start the server, simply type the following and go http://localhost:3000 to have a check.
-> node tipping start
+> npm start
 
 and type the following to terminate
-> node tipping stop
+> npm stop
 
 ## Milestones
 ### 0.1.0
@@ -28,13 +28,13 @@ and type the following to terminate
 - [x] Sign-up Modulue
 
 ### 0.2.0
-![Progress](http://progressed.io/bar/80)
+![Progress](http://progressed.io/bar/100)
 - [x] Refactoring to OOP
-- [ ] Log-in Modulue
+- [x] Log-in Modulue
 
 ## API
 ### Sign-up (/signup)
-It is used to post sign-up info to the server to regisiter an account. Input parameters are escaped to pervent from SQL injectino.
+It is used to post sign-up info to the server to regisiter an account.
 
 |input|description|
 |:-:|:-:|
@@ -54,7 +54,21 @@ It is used to post sign-up info to the server to regisiter an account. Input par
 |7| username already exists|
 |8| password not correctly hashed|
 
+### Login (/login)
+It is used to post login info to the server to get the uid. Input can be user or email.
+|input|description|
+|:-:|:-:|
+|username or email| |
+|password|a sha256 string|
 
+|output-code|description|
+|:-:|:-:|
+|0| success|
+|1| username/email contain invalid char| 
+|2| password not correctly hashed|
+|3| username too long|
+|4| wrong user/email or password|
+|5| error with posing to server|
 
 
 
