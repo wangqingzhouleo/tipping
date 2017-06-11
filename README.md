@@ -27,8 +27,9 @@ and type the following to terminate
 ![Progress](http://progressed.io/bar/100)
 - [x] Sign-up Modulue
 
-### 0.2.1
+### 0.2.0
 ![Progress](http://progressed.io/bar/0)
+- [ ] Reflector to OOP
 - [ ] Log-in Modulue
 
 ## API

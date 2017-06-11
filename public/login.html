@@ -8,40 +8,51 @@
 				margin-top:100px;
 			}
 		</style>
-		<script type="text/javascript" src = "http://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type = "text/javascript" src='public/asmcrypto.js'></script>
+
 	</head>
 
 	<body>
 		<div>
 			<h1> Login </h1>
-			username/email: <br>
-			<input type="text" name = "username" value = ""/>
+			username/email:<br>
+			<input type ="text" id = "user" value = ""/>
 			<br>
 			password:<br>
-			<input type="text" name = "password" value = ""/>
+			<input type="text" id = "password" value = ""/>
 			<br><br>
-			<input type="submit" value = "login" onClick = "login()"/>
+			<input type="submit" value = "Log in" onClick = "login()"/>
 		</div>
 	</body>
 
 	<script type = "text/javascript">
-		function login(){
-		    $.ajax({
-				type: "POST",
-				url: "../login",
-				data: {id:'123',pwd:'234'},
+		function signup(){
+			var user = document.getElementById("user").value;
+			var pwd = document.getElementById("password").value;
+			pwd = forge_sha256(pwd);
 
-				// ------v-------use it as the callback function
-				success: handleData,
-				error: function(request,error) {
-					alert('123');
-				// console.log(request, error);
-				}
-		    });
+			var params = {"user":username,"pwd":pwd};
+			params = JSON.stringify(params);
+			getText('http://localhost:3000/login', params,mycallback);
 		}
 
-		function handleData(){
-			alert("123");
+		getText = function(url,params, callback)
+		{
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function()
+			{
+				if (request.readyState == 4 && request.status == 200)
+				{
+				    callback(request.responseText);
+				}
+			}; 
+			request.open('POST', url);
+			request.setRequestHeader('Content-Type', 'application/json')
+			request.send(params);
+		}
+
+		function mycallback(data) {
+			alert(data);
 		}
 	</script>
 </html>

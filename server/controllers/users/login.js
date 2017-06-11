@@ -4,16 +4,16 @@ const mysql = require('mysql');
 
 
 function sendQuery(body, sqlCon,callback){
-	console.log(body);
-	let sql = "INSERT INTO login (username, email,password) VALUES ('??', '??', '??')";
-	sqlCon.query(sql,[body.username, body.email, body.pwd],function(err,result){
-		console.log("queried");
-		if (err)
-			callback(err,{"code":1,"body":"Error inserting into mysql"});
-		else
-			callback(null,{"code":0,"body":"success"});
-	});
-	sqlCon.end();
+	// console.log(body);
+	// let sql = "INSERT INTO login (username, email,password) VALUES ('??', '??', '??')";
+	// sqlCon.query(sql,[body.username, body.email, body.pwd],function(err,result){
+	// 	console.log("queried");
+	// 	if (err)
+	// 		callback(err,{"code":1,"body":"Error inserting into mysql"});
+	// 	else
+	// 		callback(null,{"code":0,"body":"success"});
+	// });
+	// sqlCon.end();
 }
 
 
