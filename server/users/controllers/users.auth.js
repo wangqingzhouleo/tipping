@@ -1,14 +1,15 @@
 `use strict`
-import UserAuth from '~/SqlUserAuth';
 import MySqlModel from '~/MySqlModel';
+const crypto = require('crypto');
 
 class User {
-	constructor(body){
-		this.username = body.username;
-		this.email = body.email;
-		this.password = body.password;
-		this.loginInditify = body.loginInditify;
-		// this.body = body;
+	saltedHashed(salt){
+		const hash = crypto.createHash('sha256');		
+		if ( typeof salt == "undefined")
+			hash.update(this.password);
+		else
+			hash.update(this.password+salt);
+		return hash.digest('hex');
 	}
 
 	singupCheckInput(){
@@ -43,18 +44,26 @@ class User {
 		return true;
 	}
 
+	constructor(body){
+		this.username = body.username;
+		this.email = body.email;
+		this.password = body.password;
+		this.loginInditify = body.loginInditify;
+		// this.body = body;
+	}
 
 	signup(callback){
 		// post
-		let mySqlModel = new MySqlModel();
-		let _this = this;
+		const mySqlModel = new MySqlModel();
+		const _this = this;
+		const salt = crypto.randomBytes(32).toString('hex');
+
 		return new Promise(function(resolve,reject){
 			if (!_this.singupCheckInput())
 				return reject();
-			mySqlModel.insert("login",["username", "email","password"],
-				[_this.username,_this.email,_this.password], (success,out) => {					
+			mySqlModel.insert("login",["username", "email","password","salt"],
+				[_this.username,_this.email,_this.saltedHashed(salt),salt], (success,out) => {					
 					if (success){
-						console.log(success);
 						resolve();
 					}
 					else
@@ -66,23 +75,22 @@ class User {
 	login(){
 		let mySqlModel = new MySqlModel();
 		let field = this.loginInditify.includes("@")? "email" : "username";
-		let sql = "SELECT `uid`, `password` FROM `login` WHERE `" +  field 
+		let sql = "SELECT `uid`, `password`, `salt` FROM `login` WHERE `" +  field 
 			+  "` = '" + this.loginInditify + "' LIMIT 1;";
 		let _this = this;
 
-		return new Promise(function (resolve,reject){
-			// console.log(_this.loginCheckInput());	
+		return new Promise(function (resolve,reject){	
 			if (!_this.loginCheckInput()){
 			 	return reject();
 			}
 			// post
 			mySqlModel.query(sql,(success,out) =>{
-				if (!success || out[0].password != _this.password){
+				if (!success || out[0].password != _this.saltedHashed(out[0].salt)){
 					reject();
 				}
 				else
 					resolve(out[0].uid);
-			});			
+			});	
 		})
 
 	}

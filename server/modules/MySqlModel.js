@@ -25,6 +25,7 @@ class MySqlModel{
 		}).catch(function(res){
 			connection.end();
 			callback(false,res);
+			throw res;
 		});
 	}
 	insert(table, fields, values,callback){
