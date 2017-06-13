@@ -15,17 +15,24 @@ class MySqlModel{
 	}
 
 	query(sql,callback){
+		console.log(sql);
 		let connection;
 		mysql.createConnection(this.sqlPara).then(function(con){
 			connection = con;
 		    return connection.query(sql);
-		}).then(function(res){			
+		}).catch(function(err){
+			// console.error(err);
 			connection.end();
+			return callback(false,err);
+		})
+		.then(function(res){
 			callback(true,res);
-		}).catch(function(res){
 			connection.end();
-			callback(false,res);
-			throw res;
+		}).catch(function(res){
+			// console.error(res);
+			connection.end();
+			return callback(false,res);
+			// throw res;
 		});
 	}
 	insert(table, fields, values,callback){
@@ -40,7 +47,7 @@ class MySqlModel{
 		for (let i=1;i<n;i++)
 			sql += ', "' + values[i].toString() + '"';
 		sql += ');';
-		console.log(sql);
+		
 		this.query(sql,callback);
 	}
 

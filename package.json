@@ -7,9 +7,13 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
     "fs-extra": "^3.0.1",
+    "jsonwebtoken": "^7.4.1",
     "ora": "^1.2.0",
     "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0",
     "passport-oauth": "^1.0.0",
     "path": "^0.12.7",
     "pm2": "^2.4.6",
@@ -29,6 +33,7 @@
   "scripts": {
     "start": "node tipping start",
     "stop": " node tipping stop",
-    "restart": "npm stop;npm start"
+    "restart": "npm stop;npm start",
+    "test": "mocha --compilers js:babel-core/register"
   }
 }

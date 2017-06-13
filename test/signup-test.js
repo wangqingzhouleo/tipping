@@ -1,21 +1,9 @@
 const sha256 = require('sha256');
 
-var tc = [
-	["fa93hws","wjun0912@gmail.com","546",200],
-	["fa93hws","wjun0912@126.com","134",400], // 1
-	["wjun0912","wjun0912@gmail.com","2435",400],
-	["1","c@c.com","23",200], //3
-	["fa93hws","wjun0912","41223",400],
-	["","wjun0912@gmail.com","214312",400],//5
-	["fa93hws","wjun0912@gmail.com","",400], // password not hashed
-	["fa99=0","wjun0912@gmail.com","12",400], // 7
-	["fa990","wjun0m;912@gmail.com","12",400],
-	["12312321321321321243215sdkjgdsalkfjoizcxuv98xz7908324uijhxzvciusaoidfdsafdsafcxzv","wjun0912@gmail.com","123",400]
-]
-
-
 module.exports = function(server,should){
-	signup_test = {};
+	let signup_test = {};
+	let tc = testcases.signup;
+	
 	signup_test.test = function(i){	
 	    it("sign-up test case" + i,function(done){
 	        server
@@ -30,6 +18,7 @@ module.exports = function(server,should){
 
 
 	signup_test.run = function(){
+		// let tc = testcases.signup;
 		for (var i=0; i < tc.length; i++){
 			if (i!=6){
 				let hash = sha256(tc[i][2]);

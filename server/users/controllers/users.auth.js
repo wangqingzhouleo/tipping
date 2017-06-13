@@ -1,8 +1,13 @@
 `use strict`
 import MySqlModel from '~/MySqlModel';
+import {jwtOptions} from '~/configure.js';
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const passportJWT = require("passport-jwt");
+const ExtractJwt = passportJWT.ExtractJwt;
 
-class User {
+
+class UserAuth {
 	saltedHashed(salt){
 		const hash = crypto.createHash('sha256');		
 		if ( typeof salt == "undefined")
@@ -28,7 +33,6 @@ class User {
 			return false;
 		return true;
 	}
-
 	loginCheckInput(){
 		let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		let match = this.loginInditify.match(pattern);
@@ -43,7 +47,6 @@ class User {
 		}
 		return true;
 	}
-
 	constructor(body){
 		this.username = body.username;
 		this.email = body.email;
@@ -51,7 +54,6 @@ class User {
 		this.loginInditify = body.loginInditify;
 		// this.body = body;
 	}
-
 	signup(callback){
 		// post
 		const mySqlModel = new MySqlModel();
@@ -61,7 +63,7 @@ class User {
 		return new Promise(function(resolve,reject){
 			if (!_this.singupCheckInput())
 				return reject();
-			mySqlModel.insert("login",["username", "email","password","salt"],
+			mySqlModel.insert("users",["username", "email","password","salt"],
 				[_this.username,_this.email,_this.saltedHashed(salt),salt], (success,out) => {					
 					if (success){
 						resolve();
@@ -71,13 +73,12 @@ class User {
 			});
 		}) 
 	}
-
 	login(){
-		let mySqlModel = new MySqlModel();
-		let field = this.loginInditify.includes("@")? "email" : "username";
-		let sql = "SELECT `uid`, `password`, `salt` FROM `login` WHERE `" +  field 
+		const mySqlModel = new MySqlModel();
+		const field = this.loginInditify.includes("@")? "email" : "username";
+		const sql = "SELECT `uid`, `password`, `salt` FROM `users` WHERE `" +  field 
 			+  "` = '" + this.loginInditify + "' LIMIT 1;";
-		let _this = this;
+		const _this = this;
 
 		return new Promise(function (resolve,reject){	
 			if (!_this.loginCheckInput()){
@@ -88,12 +89,15 @@ class User {
 				if (!success || out[0].password != _this.saltedHashed(out[0].salt)){
 					reject();
 				}
-				else
-					resolve(out[0].uid);
+				else{
+					const payload = {"id":out[0].uid};
+					const token = jwt.sign(payload, jwtOptions.secretOrKey);
+					resolve({"token":token,"uid":out[0].uid});
+					// resolve({token:token,uid:out[0].uid});
+				}
 			});	
-		})
-
+		})		
 	}
 }
 
-export default User;
+export default UserAuth;
