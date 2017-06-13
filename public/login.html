@@ -31,7 +31,7 @@
 			var pwd = document.getElementById("password").value;
 			pwd = forge_sha256(pwd);
 
-			var params = {"user":username,"pwd":pwd};
+			var params = {"loginInditify":user,"password":pwd};
 			params = JSON.stringify(params);
 			getText('http://localhost:3000/login', params,mycallback);
 		}

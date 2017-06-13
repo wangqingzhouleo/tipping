@@ -6,20 +6,9 @@ class UserAuth extends MySqlModel {
 		super();
 		this.username = userInfo.username;
 		this.email = userInfo.email;
-		this.password = userInfo.pwd;
+		this.password = userInfo.password;
 		this.loginInditify = userInfo.loginInditify	;
 	}
-	signup(callback){
-		super.insert("login",["username", "email","password"],
-			[this.username,this.email,this.password],callback);
-	}
-	loginByEmail(callback){
-
-	}
-	loginByUser(callback){
-
-	}
-
 	login(callback){
 		let userOrEmail = this.loginInditify;
 		let field = userOrEmail.includes("@")? "email" : "username";

@@ -37,7 +37,7 @@
 			var pwd = document.getElementById("password").value;
 			pwd = forge_sha256(pwd);
 
-			var params = {"username":username,"email":email,"pwd":pwd};
+			var params = {"username":username,"email":email,"password":pwd};
 			params = JSON.stringify(params);
 			getText('http://localhost:3000/signup', params,mycallback);
 		}

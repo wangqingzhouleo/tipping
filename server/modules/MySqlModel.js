@@ -19,13 +19,12 @@ class MySqlModel{
 		mysql.createConnection(this.sqlPara).then(function(con){
 			connection = con;
 		    return connection.query(sql);
-		}).then(function(res){
-			callback({"success":true,"body":res});
+		}).then(function(res){			
 			connection.end();
-		}).catch(function(err){
-			console.error(err);
+			callback(true,res);
+		}).catch(function(res){
 			connection.end();
-			callback({"success":false, "body":err});
+			callback(false,res);
 		});
 	}
 	insert(table, fields, values,callback){

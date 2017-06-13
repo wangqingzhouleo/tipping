@@ -1,12 +1,12 @@
 const sha256 = require('sha256');
 
 var tc = [
-	["fa93hws","546",0],
-	["wjun0912@gmail.com","546",0], // 1
-	["fa93h=ws","546",1], // invalid char
-	["safd","",2],//3 not hashed
-	["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","2",3],
-	["fa93hws","123",4]
+	["fa93hws","546",200],
+	["wjun0912@gmail.com","546",200], // 1
+	["fa93h=ws","546",400], // invalid char
+	["safd","",400],//3 not hashed
+	["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","2",400],
+	["fa93hws","123",400]//5
 ]
 
 
@@ -16,9 +16,9 @@ module.exports = function(server,should){
 	    it("login test case" + i,function(done){
 	        server
 	        .post("/login")
-	        .send({"loginInditify":tc[i][0],"pwd":tc[i][1]})
+	        .send({"loginInditify":tc[i][0],"password":tc[i][1]})
 	        .end(function(err,res){
-	            res.body.code.should.equal(tc[i][2]);
+	            res.status.should.equal(tc[i][2]);
 	            done();
 	        });
 	    });		
