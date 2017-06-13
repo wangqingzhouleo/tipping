@@ -22,7 +22,6 @@ module.exports = function(server,should){
 	        .post("/signup")
 	        .send({"username":tc[i][0],"email":tc[i][1],"password":tc[i][2]})
 	        .end(function(err,res){
-	        	// console.log(res);
 	            res.status.should.equal(tc[i][3]);
 	            done();
 	        });
