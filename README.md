@@ -27,8 +27,12 @@ and type the following to terminate
 ### 0.3.0
 ![Progress](http://progressed.io/bar/30)
 - [x] User login/sign system
-- [ ] Betting system prototype
+- [ ] Update user profile
+- [ ] Reset Password
 
+### 0.4.0
+![Progress](http://progressed.io/bar/0)
+- [ ] Single game play prototype
 
 
 ## API
