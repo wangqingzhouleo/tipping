@@ -1,11 +1,13 @@
 `use strict`
 import UserAuth from './controllers/users.auth';
 import UserProfile from './controllers/user.profile.js';
+import JwtDecode from '~/JWTDecode'
 
 class User{
 	constructor(body){
 		this.profile = new UserProfile();
 		this.auth = {};
+		this.decode = new JwtDecode();
 		if (typeof body.sex != 'undefined') //pass in everthing
 			this.profile = this.profile.initWithDetail(body);
 		else	// pass in auth info
@@ -26,7 +28,22 @@ class User{
 			res.status(400).json({"success":0, "message":"sign-up failed"});
 		});
 	}
-	getProfile(uid,res){
+	getProfileByid(uid,res){
+		this.profile.getParaFromUid(uid).then(function(out){
+			res.status(200).json(out[0]);
+		}, function(){
+			res.status(400).json({"success":0, "message":"uid not found"});
+		});
+	}
+	getProfileByName(uid,res){
+		this.profile.getParaFromUid(uid).then(function(out){
+			res.status(200).json(out[0]);
+		}, function(){
+			res.status(400).json({"success":0, "message":"uid not found"});
+		});
+	}
+	getProfile(token,res){
+		const uid = this.decode.extractPayload(token).id;
 		this.profile.getParaFromUid(uid).then(function(out){
 			res.status(200).json(out[0]);
 		}, function(){

@@ -1,24 +1,32 @@
 `use strict`
 import MySqlModel from '~/MySqlModel';
+
 class UserProfile{
 	constructor(){
 		this.isInit = false;
 	}
-	getParaFromUid(uid){
+	getParaPromise(sql,obj){
 		const mySqlModel = new MySqlModel();
-		const sql = "SELECT `*` FROM `users` WHERE  `uid` = "  + uid + " LIMIT 1;";
-		var _this = this;
 		return new Promise(function(resolve,reject){
 			mySqlModel.query(sql,(success,out) =>{
-				console.log(out);
+				// console.log(out);
 				if (!success || out.length < 1)
 					reject();
 				else{
 					resolve(out);
-					_this.initWithDetail(out);
+					obj.initWithDetail(out);
 				}
 			});
-		});
+		});		
+	}
+	getParaFromUid(uid){		
+		const sql = "SELECT `*` FROM `users` WHERE  `uid` = "  + uid + " LIMIT 1;";
+		return this.getParaPromise(sql,this);
+
+	}
+	getParaFromName(username){
+		const sql = "SELECT `*` FROM `users` WHERE  `username` = '"  + username + "' LIMIT 1;";
+		return this.getParaPromise(sql,this);
 	}
 	initWithDetail(detail){
 		this.isInit = true;

@@ -21,7 +21,7 @@ var testcases = {
 		["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","2",401],
 		["fa93hws","123",401]//5
 	],
-	"profile":[1]
+	"profile":["fa93hws"]
 }
 
 exports.testcases = testcases;

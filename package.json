@@ -18,6 +18,7 @@
     "path": "^0.12.7",
     "pm2": "^2.4.6",
     "promise-mysql": "^3.0.1",
+    "redis": "^2.7.1",
     "sql": "^0.76.1",
     "yargs": "^8.0.1"
   },
@@ -28,7 +29,8 @@
     "sha256": "^0.2.0",
     "should": "^11.2.1",
     "sleep": "^5.1.1",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "supertest-as-promised": "^4.0.2"
   },
   "scripts": {
     "start": "node tipping start",

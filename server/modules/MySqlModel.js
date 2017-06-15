@@ -15,25 +15,15 @@ class MySqlModel{
 	}
 
 	query(sql,callback){
-		console.log(sql);
+		// console.log(sql);
 		let connection;
 		mysql.createConnection(this.sqlPara).then(function(con){
 			connection = con;
 		    return connection.query(sql);
-		}).catch(function(err){
-			// console.error(err);
-			connection.end();
-			return callback(false,err);
 		})
-		.then(function(res){
-			callback(true,res);
-			connection.end();
-		}).catch(function(res){
-			// console.error(res);
-			connection.end();
-			return callback(false,res);
-			// throw res;
-		});
+		.then(res =>callback(true,res))
+		.catch(res=>callback(false,res))
+		.then(()=>connection.end());
 	}
 	insert(table, fields, values,callback){
 		if (fields.length != values.length)

@@ -39,6 +39,15 @@ module.exports = function (app) {
 	// Profile
 	app.post('/profile',function(req,res){
 		let user = new User(req,res);
-		user.getProfile(req.body.uid,res);
+		user.getProfile(req.body.token,res);
 	})
+
+	// app.post('/profileById',function(req,res){
+	// 	let user = new User(req,res);
+	// 	user.getProfile(req.body.uid,res);
+	// })
+	// app.post('/profileByName',function(req,res){
+	// 	let user = new User(req,res);
+	// 	user.getProfile(req.body.uid,res);
+	// })
 };
