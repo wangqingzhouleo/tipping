@@ -18,7 +18,7 @@ module.exports = function (app) {
 
 	// signup
 	app.get('/signup',function(req,res){
-		res.sendFile( path.join(__dirname, '../public/signup.html') );
+		res.sendFile( path.join(__dirname, '../../public/signup.html') );
 	});
 
 	app.post('/signup', function(req,res){
@@ -29,7 +29,7 @@ module.exports = function (app) {
 
 	// login
 	app.get('/login', function(req,res){
-		res.sendFile( path.join(__dirname, '../public/login.html') );
+		res.sendFile( path.join(__dirname, '../../public/login.html') );
 	});
 	app.post('/login', function(req,res){
 		let user = new User(req.body);
@@ -42,6 +42,10 @@ module.exports = function (app) {
 		user.getProfile(req.body.token,res);
 	})
 
+	app.post('/updateProfile',function(req,res){
+		let user = new User(req,res);
+		user.updateProfile(req.body.token,res);
+	})
 	// app.post('/profileById',function(req,res){
 	// 	let user = new User(req,res);
 	// 	user.getProfile(req.body.uid,res);
