@@ -84,7 +84,7 @@ class UserProfile{
 		// console.log(detail);
 		if (!this.checkBirthday(detail.birthday) || !this.checkGender(detail.sex))
 			return this.errorPromise();
-		let fields = ["sex","imageurl","birthday","location","birthday","displayname"];
+		let fields = ["sex","imageurl","birthday","location","phone","displayname"];
 		let values = [];
 		for (let i=0; i< fields.length;i++){
 			values.push(detail[fields[i]]);

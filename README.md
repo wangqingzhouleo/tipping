@@ -25,9 +25,9 @@ and type the following to terminate
 - [x] Log-in Modulue
 
 ### 0.3.0
-![Progress](http://progressed.io/bar/30)
+![Progress](http://progressed.io/bar/50)
 - [x] User login/sign system
-- [ ] Update user profile
+- [x] Update user profile
 - [ ] Reset Password
 
 ### 0.4.0
@@ -68,6 +68,20 @@ It will return the detail of the user profile.
 - input: json web token
 - outpu: personal detail (see ERR diagram in sql for detail)
 
+### update profile(/updateProfile)
+|input|description|
+|:-:|:-:|
+|sex| F,M or DK |
+|imageurl|portrait|
+|birthday| yyyy-mm-dd|
+|location|any text|
+|phone| any-text|
+|display name| any-text|
+
+|output|description|
+|:-:|:-:|
+|200| success|
+|400| failed|
 
 
 
