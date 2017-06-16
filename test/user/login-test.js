@@ -1,12 +1,11 @@
 `use strict`
 const sha256 = require('sha256');
-
+let testcases = require('./testCases.js').testcases;
 
 
 module.exports = function(server,should){
 	let login_test = {};
 	let tc = testcases.login;
-
 	login_test.test = function(i){
 		let _this = this;
 	    it("login test case" + i,function(done){

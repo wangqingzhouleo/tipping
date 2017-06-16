@@ -1,9 +1,9 @@
 const sha256 = require('sha256');
+let testcases = require('./testCases.js').testcases;
 
 module.exports = function(server,should){
 	let signup_test = {};
 	let tc = testcases.signup;
-	
 	signup_test.test = function(i){	
 	    it("sign-up test case" + i,function(done){
 	        server

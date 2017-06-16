@@ -53,6 +53,25 @@ class UserProfile{
 		this.update = detail.update;		
 	}
 	checkBirthday(birthday){
+		const match = birthday.match(/^(\d{4})\-(\d{2})\-(\d{2})$/);
+		if (!match || match.length !=4)
+			return false;
+		const year = parseInt(match[1]);
+		const month = parseInt(match[2]);
+		const day = parseInt(match[3]);
+		const thisYear = new Date().getFullYear();
+		if (year >= thisYear || year < thisYear - 200)
+			return false;
+		if (month > 12 || month < 0)
+			return false;
+		if (day > 31 || day <0)
+			return false;
+		if (month == 2){
+			if (!(year%400==0 || (year%4==0 && year%100!=0)) && day > 28)
+				return false;
+		}
+		else if ((month%2==0 && month <=7 || month%2==1 && month >7) && day > 30)
+			return false;
 		return true;
 	}
 	checkGender(sex){
@@ -62,6 +81,7 @@ class UserProfile{
 			return false;
 	}
 	updateDetail(detail){
+		// console.log(detail);
 		if (!this.checkBirthday(detail.birthday) || !this.checkGender(detail.sex))
 			return this.errorPromise();
 		let fields = ["sex","imageurl","birthday","location","birthday","displayname"];

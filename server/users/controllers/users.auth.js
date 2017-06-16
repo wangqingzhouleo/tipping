@@ -91,9 +91,9 @@ class UserAuth {
 					reject();
 				}
 				else{
-					const payload = {"id":out[0].uid};
+					const payload = {"uid":out[0].uid};
 					const token = jwt.sign(payload, jwtOptions.secretOrKey);
-					resolve({"token":token,"uid":out[0].uid});
+					resolve({"token":token});
 					// resolve({token:token,uid:out[0].uid});
 				}
 			});	

@@ -46,7 +46,8 @@ class User{
 		const decode = this.decode.extractPayload(token);
 		if (!decode)
 			return res.status(400).json({"success":0, "message":"token not valid"});
-		const uid = decode.id;
+		const uid = decode.uid;
+		console.log(uid);
 		this.profile.getParaFromUid(uid).then(function(out){
 			res.status(200).json({"success":1, "profile":out[0]});
 		}, function(){
@@ -58,11 +59,10 @@ class User{
 		if (!decode)
 			return res.status(400).json({"success":0, "message":"token not valid"});
 
-		decode.para.uid = decode.uid;
-		this.profile.updateDetail(decode.para).then(function(out){
+		this.profile.updateDetail(decode).then(function(out){
 			res.status(200).json({"success":1, "message":"success"});
 		}, function(){
-			res.status(400).json({"success":0, "message":"uid not found"});
+			res.status(400).json({"success":0, "message":"error in fields"});
 		});		
 	}
 }

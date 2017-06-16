@@ -1,61 +1,64 @@
 `use strict`
 const sha256 = require('sha256');
+import {jwtOptions} from '~/configure.js';
+const jwt = require('jsonwebtoken');
+import JwtDecode from '~/JWTDecode'
+import User from '../../server/users/users.main';
+let testcases = require('./testCases.js').testcases;
+
 
 
 
 module.exports = function(server,should){
-	let getpro_test = {};
+	let update_test = {};
+	let decode = new JwtDecode();
 	let tc = testcases.login;
-	getpro_test.profileByName = function(uid){
 
-	}
-	getpro_test.profileByToken = function(token,i){
-        server
-        .post("/profile")
-        .send({"token":token})
-        .end(function(err,res){
-            if (tc[i][2]==200){
-            	// console.log(i);
-            	// res.status.should.equal(200); 	
-            	if (tc[0][0].includes('@')){
-            		const jug = res.body.profile.email == tc[0][0];
-            		jug.should.equal(true);
-            	}
-            	else{
-            		const jug = res.body.profile.username == tc[0][0];
-            		jug.should.equal(true);
-            	}
-            }
-            // else
-            // 	res.status.should.not.equal(200);
+	update_test.run = function(){
+		let uid  = 0;
+		let token = "";
+		let index = -1;
+		describe("get profile",function(){
+			beforeEach(function(done){
+				index ++;
+				if (tc[index][2] != 200){
+					uid = 0;
+					done();
+					return;
+				}
+				if (tc[index][1].length != 64)
+					tc[index][1] = sha256(tc[index][1]);
+				const body = {"loginInditify":tc[index][0],"password":tc[index][1]};
+				// console.log(body);
+				try{
+					server.post("/login").send(body)
+					.end(function(err,res){
+						let payload = decode.extractPayload(res.body.token);
+						uid = payload.uid;
+						done();
+					})
+				}
+				catch(e){
+					console.log(e.message);
+				}
+			})
 
-        });	
-	}
-
-	getpro_test.test = function(i){
-		let _this = this;
-	    it("get profile test" + i,function(done){
-	        server
-	        .post("/login")
-	        .send({"loginInditify":tc[i][0],"password":tc[i][1]})
-	        .end(function(err,res){
-	        	// console.log(res.body);
-	            done(_this.profileByToken(res.body.token, i));            
-	        });
-	    });
-	}
-
-
-	getpro_test.run = function(){
-		for (var i=0; i < tc.length; i++){
-			if (i!=3){
-				let hash = sha256(tc[i][1]);
-	            tc[i][1] = hash;
-        	}
-			this.test(i);
-		}
+			for (let i=0; i < tc.length; i++){
+				it("case" + i,function(done){
+					let token = jwt.sign({uid:uid}, jwtOptions.secretOrKey);
+					server.post("/profile").send({token:token})
+					.end(function(err,res){
+						if (uid!= 0)
+							res.status.should.equal(200);
+						else
+							res.status.should.equal(400);
+						done();
+					})
+				})
+			}
+		})
 	}
 
-	return getpro_test;
+	return update_test;
 
 }

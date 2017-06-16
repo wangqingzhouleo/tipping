@@ -1,7 +1,7 @@
 `use strict`
 
 var testcases = {
-	"signup":[
+	signup:[
 		["fa93hws","wjun0912@gmail.com","546",200],
 		["fa93hws","wjun0912@126.com","134",400], // 1
 		["wjun0912","wjun0912@gmail.com","2435",400],
@@ -27,10 +27,19 @@ var testcases = {
 			"displayname":"eric","expect":200},
 		{"sex":"P", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
 			"birthday":"1989-09-12","phone":"0451122306","location":"NSW",
-			"displayname":"eric","expect":400}, //invalid sex
+			"displayname":"eric","expect":400}, //invalid sex 1
 		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
-			"birthday":"198909-12","phone":"0451122306","location":"NSW",
+			"birthday":"1900-02-29","phone":"0451122306","location":"NSW",
 			"displayname":"eric","expect":400}, //invalid birthday
+		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
+			"birthday":"19829-02-29","phone":"0451122306","location":"NSW",
+			"displayname":"eric","expect":400}, //invalid birthday 3
+		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
+			"birthday":"2015-09-31","phone":"0451122306","location":"NSW",
+			"displayname":"eric","expect":400}, //invalid birthday
+		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
+			"birthday":"2016-02-29","phone":"0451122306","location":"NSW",
+			"displayname":"eric","expect":200}, //invalid birthday 5
 	]
 }
 

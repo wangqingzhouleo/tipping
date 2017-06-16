@@ -15,6 +15,7 @@ class MySqlModel{
 	}
 
 	query(sql,callback){
+		console.log(sql);
 		let connection;
 		mysql.createConnection(this.sqlPara).then(function(con){
 			connection = con;
