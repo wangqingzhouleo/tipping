@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const passportJWT = require("passport-jwt");
 const ExtractJwt = passportJWT.ExtractJwt;
+const mysql = require('promise-mysql');
 
 
 class UserAuth {
@@ -77,7 +78,7 @@ class UserAuth {
 		const mySqlModel = new MySqlModel();
 		const field = this.loginInditify.includes("@")? "email" : "username";
 		const sql = "SELECT `uid`, `password`, `salt` FROM `users` WHERE `" +  field 
-			+  "` = '" + this.loginInditify + "' LIMIT 1;";
+			+  "` = " + mysql.escape(this.loginInditify) + " LIMIT 1;";
 		const _this = this;
 
 		return new Promise(function (resolve,reject){	

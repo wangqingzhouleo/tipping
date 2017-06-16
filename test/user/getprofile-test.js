@@ -4,49 +4,49 @@ const sha256 = require('sha256');
 
 
 module.exports = function(server,should){
-	let login_test = {};
+	let getpro_test = {};
 	let tc = testcases.login;
-	login_test.profileByName = function(uid){
+	getpro_test.profileByName = function(uid){
 
 	}
-	login_test.profileByToken = function(token,expect){
+	getpro_test.profileByToken = function(token,i){
         server
         .post("/profile")
         .send({"token":token})
         .end(function(err,res){
-            if (expect.status==200){
-            res.status.should.equal(200);      	
-            	if (expect.user.includes('@')){
-            		const jug = res.body.email == expect.user;
+            if (tc[i][2]==200){
+            	// console.log(i);
+            	// res.status.should.equal(200); 	
+            	if (tc[0][0].includes('@')){
+            		const jug = res.body.profile.email == tc[0][0];
             		jug.should.equal(true);
             	}
             	else{
-            		const jug = res.body.username == expect.user;
+            		const jug = res.body.profile.username == tc[0][0];
             		jug.should.equal(true);
             	}
             }
-            else
-            	res.status.should.not.equal(200);
+            // else
+            // 	res.status.should.not.equal(200);
 
         });	
 	}
 
-	login_test.test = function(i){
+	getpro_test.test = function(i){
 		let _this = this;
-	    it("login test case" + i,function(done){
+	    it("get profile test" + i,function(done){
 	        server
 	        .post("/login")
 	        .send({"loginInditify":tc[i][0],"password":tc[i][1]})
 	        .end(function(err,res){
-	            res.status.should.equal(tc[i][2]);
-            	done(_this.profileByToken(res.body.token,{"status":tc[i][2],"user":tc[i][0]}));
-	            
+	        	// console.log(res.body);
+	            done(_this.profileByToken(res.body.token, i));            
 	        });
 	    });
 	}
 
 
-	login_test.run = function(){
+	getpro_test.run = function(){
 		for (var i=0; i < tc.length; i++){
 			if (i!=3){
 				let hash = sha256(tc[i][1]);
@@ -56,6 +56,6 @@ module.exports = function(server,should){
 		}
 	}
 
-	return login_test;
+	return getpro_test;
 
 }

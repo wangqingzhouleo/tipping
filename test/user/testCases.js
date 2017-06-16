@@ -21,7 +21,17 @@ var testcases = {
 		["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","2",401],
 		["fa93hws","123",401]//5
 	],
-	"profile":["fa93hws"]
+	"uppro":[
+		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
+			"birthday":"1989-09-12","phone":"0451122306","location":"NSW",
+			"displayname":"eric","expect":200},
+		{"sex":"P", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
+			"birthday":"1989-09-12","phone":"0451122306","location":"NSW",
+			"displayname":"eric","expect":400}, //invalid sex
+		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
+			"birthday":"198909-12","phone":"0451122306","location":"NSW",
+			"displayname":"eric","expect":400}, //invalid birthday
+	]
 }
 
 exports.testcases = testcases;

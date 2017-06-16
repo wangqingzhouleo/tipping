@@ -42,6 +42,10 @@ module.exports = function (app) {
 		user.getProfile(req.body.token,res);
 	})
 
+	app.post('/updateProfile',function(req,res){
+		let user = new User(req,res);
+		user.updateProfile(req.body.token,res);
+	})
 	// app.post('/profileById',function(req,res){
 	// 	let user = new User(req,res);
 	// 	user.getProfile(req.body.uid,res);
