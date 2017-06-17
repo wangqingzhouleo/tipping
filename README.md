@@ -25,10 +25,10 @@ and type the following to terminate
 - [x] Log-in Modulue
 
 ### 0.3.0
-![Progress](http://progressed.io/bar/90)
+![Progress](http://progressed.io/bar/100)
 - [x] User login/sign system
 - [x] Update user profile
-- [ ] Reset Password
+- [x] Reset Password
 
 ### 0.4.0
 ![Progress](http://progressed.io/bar/0)
@@ -87,6 +87,7 @@ It will return the detail of the user profile.
 ### forget password(/forget)
 Send the email address in token and the sever will send the email to the target email account. Even if
 the email address doesn't exists in the database, the message will imply success any way.
+
 |input|description|
 |:-:|:-:|
 |email|sign-up email address |
@@ -94,6 +95,14 @@ the email address doesn't exists in the database, the message will imply success
 |output|description|
 |:-:|:-:|
 |200| success|
+
+### reset password(/reset-password)
+When receiving the email, user can reset the password based on the link provided. Link and request will be invalid after the token is expired (15 minutes after apply)
+
+|output|description|
+|:-:|:-:|
+|200| success|
+|400 | failed|
 
 
 

@@ -2,11 +2,8 @@
 const path = require('path');
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const fs = require('fs');
 import User from './users.main';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import ResetPassPage from '../../public/reset-password';
-import ResetError from '../../public/reset-password-wrong';
 
 module.exports = function (app) {
 	app.use(passport.initialize());
@@ -56,19 +53,20 @@ module.exports = function (app) {
 	})
 	app.get('/reset-password',function(req,res){
 		let user = new User(req,res);
-		user.resetPassCheck(req.body.token,(expired,email)=>{
+		const token = req.body.token || req.query.token;
+		// console.log(token);
+		user.resetPassCheck(token,(expired,email)=>{
 			if (!expired){
-		        let markup = renderToString(<ResetPassPage/>);
-		        return res.status(200).send(markup);
+		        return res.status(200).sendFile(path.join(__dirname, '../../public/reset-pass.html') );
 			}
 			else{
-		        let markup = renderToString(<ResetError/>);
-		        return res.status(404).send(markup);
+				console.log("fail");
+		        return res.status(404).send("markup");
 		    }
 		});
-
 	})
 	app.post('/reset-password',function(req,res){
-
+		let user = new User(req,res);
+		user.resetPass(req.body,res)
 	})
 };

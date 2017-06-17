@@ -27,7 +27,7 @@ module.exports = function(server,should){
 							url = res.body.url;
 						else
 							url = "some-random-text";
-						// console.log(url);
+						console.log(url);
 						done();
 					})
 				}

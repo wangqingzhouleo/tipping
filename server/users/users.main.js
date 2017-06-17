@@ -93,6 +93,14 @@ class User{
 			callback(expired,decode.email);
 		})
 	}
+	resetPass(body,res,callback){
+		this.userPass.updatePass(body.email,body.password,expired=>{
+			if (expired)
+				res.status(400).json({success:0,message:"token expired"});
+			else
+				res.status(200).json({success:1,message:"changed"});
+		})		
+	}
 }
 
 export default User;

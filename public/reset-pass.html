@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<style>
+			div{
+				width:300px;
+				margin-left:auto;
+				margin-right:auto;
+				margin-top:100px;
+			}
+		</style>
+		<script type = "text/javascript" src='public/asmcrypto.js'></script>
+
+	</head>
+
+	<body onload = "updateEmail()">
+		<div>
+			<h1> Change Password </h1>
+			<label>email:</label><br>
+			<input type ="text" id = "email" value = "" disabled = "true"/>
+			<br>
+			<label>password:</label><br>
+			<input type="password" id = "password" value = "" />
+			<br>
+			<label id = "confirm-label">Confirm Password:</label><br>
+			<input type="password" id = "confirm" value = "" />
+			<br><br>
+			<input type="submit" value = "Change Password" onClick = "changePass()"/>
+		</div>
+	</body>
+
+	<script type = "text/javascript">
+		setInterval(function() { comparePass(); }, 100);
+		function updateEmail(){
+			var url = new URL(window.location.href);
+			var token = url.searchParams.get("token");
+			var splitText = token.split('.');
+			var body = splitText[1];
+			var json = JSON.parse(window.atob(body));
+			document.getElementById("email").value = json.email;
+		}
+		function comparePass(){
+			var password = document.getElementById("password").value;
+			var confirm  = document.getElementById("confirm").value;
+			if (password!=confirm)
+				document.getElementById("confirm-label").innerHTML = 
+					'<font color="red">Confirm Password</font>'
+			else
+				document.getElementById("confirm-label").innerHTML = 
+					"Confirm Password";
+		}
+		function changePass(){
+			var password = document.getElementById("password").value;
+			var confirm  = document.getElementById("confirm").value;
+			var email    = document.getElementById("email").value;
+			if (password!=confirm)
+				return alert("Password not matched");
+			else if (password.length < 7)
+				return alert("password should be at least 7 digits");
+
+			password = forge_sha256(password);
+			var params = {"email":email,"password":password};
+			params = JSON.stringify(params);
+			sendRequest('http://localhost:3000/reset-password', params,response=>{
+				alert(response);
+			});
+		}
+		function sendRequest(url,params, callback){
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function()
+			{
+				if (request.readyState == 4 && request.status == 200)
+				{
+				    callback(request.responseText);
+				}
+			}; 
+			request.open('POST', url);
+			request.setRequestHeader('Content-Type', 'application/json')
+			request.send(params);
+		}
+	</script>
+</html>
