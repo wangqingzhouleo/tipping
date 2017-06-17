@@ -11,18 +11,18 @@ const forget = require("./user/forget-pass-test.js")(server,should);
 
 
 
-describe("sign-in and up",function(){
-    it("clear the table",function(done){
-        server
-        .post("/clearall")
-        .send({})
-        .end(function(err,res){
-            done();
-        });
-    });
-    signUp.run();
-    login.run();
-})
-getpro.run();
-uppro.run();
+// describe("sign-in and up",function(){
+//     it("clear the table",function(done){
+//         server
+//         .post("/clearall")
+//         .send({})
+//         .end(function(err,res){
+//             done();
+//         });
+//     });
+//     signUp.run();
+//     login.run();
+// })
+// getpro.run();
+// uppro.run();
 forget.run()

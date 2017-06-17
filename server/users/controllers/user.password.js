@@ -54,9 +54,21 @@ class UserPass{
 					'users',["reset-pass-token-expired"],[expire],"email",email);
 			this.mySqlModel.query(sql, (err,res)=>{});
 			//
-			callback({success:true,url:token});
+			callback({success:true,token:token});
+		})		
+	}
+	isTokenExpired(email,callback){
+		const sql = "SELECT `reset-pass-token-expired` FROM `users` WHERE `email` = " 
+			+ mysql.escape(email) + ";";
+		console.log(sql);
+		const now = + new Date();
+		this.mySqlModel.query(sql,(success,res)=>{
+			console.log(res[0]);
+			if (success && res.length == 1 && now < res[0]['reset-pass-token-expired'])
+				callback(false);
+			else
+				callback(true);
 		})
-		
 	}
 }
 

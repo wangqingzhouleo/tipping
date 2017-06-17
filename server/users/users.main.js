@@ -74,7 +74,7 @@ class User{
 		this.userPass.forget(decode.email,out =>{
 			if (out.success)
 				if (devMode)
-					res.status(200).json({success:1, message:"email sent if exists",url:out.url});
+					res.status(200).json({success:1, message:"email sent if exists",url:out.token});
 				else
 					res.status(200).json({success:1, message:"email sent if exists"});
 			else
@@ -83,8 +83,15 @@ class User{
 				else				
 					res.status(200).json({success:1, message:"email sent if exists"});			
 		});
-
-
+	}
+	resetPassCheck(token,callback){
+		const decode = this.decode.extractPayload(token);
+		if (!decode)
+			return callback(true);
+		console.log(decode);
+		this.userPass.isTokenExpired(decode.email,expired=>{
+			callback(expired,decode.email);
+		})
 	}
 }
 

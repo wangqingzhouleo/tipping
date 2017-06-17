@@ -25,7 +25,7 @@ and type the following to terminate
 - [x] Log-in Modulue
 
 ### 0.3.0
-![Progress](http://progressed.io/bar/70)
+![Progress](http://progressed.io/bar/90)
 - [x] User login/sign system
 - [x] Update user profile
 - [ ] Reset Password

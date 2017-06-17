@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "babel-plugin-root-import": "^5.1.0",
+    "babel-preset-react": "^6.24.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
@@ -19,6 +20,8 @@
     "path": "^0.12.7",
     "pm2": "^2.4.6",
     "promise-mysql": "^3.0.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "redis": "^2.7.1",
     "sql": "^0.76.1",
     "yargs": "^8.0.1"

@@ -26,7 +26,7 @@ module.exports = function(server,should){
 						if (forget[index][1] == 200)
 							url = res.body.url;
 						else
-							url = "";
+							url = "some-random-text";
 						// console.log(url);
 						done();
 					})
@@ -38,7 +38,14 @@ module.exports = function(server,should){
 
 			for (let i=0; i < forget.length; i++){
 				it ("case" + i, function(done){
-					done();
+					server.get('/reset-password').send({token:url})
+					.end(function(err,res){
+						if (url == "some-random-text")
+							res.status.should.equal(404);
+						else
+							res.status.should.equal(200);
+						done();
+					})
 				})
 			}
 		});

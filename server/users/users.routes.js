@@ -3,12 +3,13 @@ const path = require('path');
 const bodyParser = require("body-parser");
 const passport = require("passport");
 import User from './users.main';
-
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import ResetPassPage from '../../public/reset-password';
+import ResetError from '../../public/reset-password-wrong';
 
 module.exports = function (app) {
 	app.use(passport.initialize());
-	// parse application/x-www-form-urlencoded
-	// for easier testing with Postman or plain HTML forms
 	app.use(bodyParser.urlencoded({
 		extended: true
 	}));
@@ -54,6 +55,17 @@ module.exports = function (app) {
 		user.forgetPass(req.body.token,res);
 	})
 	app.get('/reset-password',function(req,res){
+		let user = new User(req,res);
+		user.resetPassCheck(req.body.token,(expired,email)=>{
+			if (!expired){
+		        let markup = renderToString(<ResetPassPage/>);
+		        return res.status(200).send(markup);
+			}
+			else{
+		        let markup = renderToString(<ResetError/>);
+		        return res.status(404).send(markup);
+		    }
+		});
 
 	})
 	app.post('/reset-password',function(req,res){
