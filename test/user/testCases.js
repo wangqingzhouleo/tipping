@@ -40,6 +40,11 @@ var testcases = {
 		{"sex":"M", "imageurl":"http://i4.piimg.com/5596/54a90ad59ac489e2.jpg",
 			"birthday":"2016-02-29","phone":"0451122306","location":"NSW",
 			"displayname":"eric","expect":200}, //invalid birthday 5
+	],
+	"forget":[
+		["wjun0912@gmail.com",200],
+		["wjun09112@gmail.com",400],
+		["123af",400]
 	]
 }
 

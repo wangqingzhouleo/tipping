@@ -5,6 +5,7 @@ global.rootRequire = function(name) {
 global.usersRequire = function(name) {
 	return require(__dirname + '/users/' + name);
 }
+global.devMode = true;
 
 const express = require('express');
 const app = express();

@@ -10,7 +10,7 @@ module.exports = function (app) {
 	// parse application/x-www-form-urlencoded
 	// for easier testing with Postman or plain HTML forms
 	app.use(bodyParser.urlencoded({
-	  extended: true
+		extended: true
 	}));
 	// parse application/json
 	app.use(bodyParser.json());
@@ -46,12 +46,17 @@ module.exports = function (app) {
 		let user = new User(req,res);
 		user.updateProfile(req.body.token,res);
 	})
-	// app.post('/profileById',function(req,res){
-	// 	let user = new User(req,res);
-	// 	user.getProfile(req.body.uid,res);
-	// })
-	// app.post('/profileByName',function(req,res){
-	// 	let user = new User(req,res);
-	// 	user.getProfile(req.body.uid,res);
-	// })
+
+
+	// password
+	app.post('/forget',function(req,res){
+		let user = new User(req,res);
+		user.forgetPass(req.body.token,res);
+	})
+	app.get('/reset-password',function(req,res){
+
+	})
+	app.post('/reset-password',function(req,res){
+
+	})
 };

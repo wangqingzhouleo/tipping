@@ -25,7 +25,7 @@ and type the following to terminate
 - [x] Log-in Modulue
 
 ### 0.3.0
-![Progress](http://progressed.io/bar/50)
+![Progress](http://progressed.io/bar/70)
 - [x] User login/sign system
 - [x] Update user profile
 - [ ] Reset Password
@@ -83,6 +83,17 @@ It will return the detail of the user profile.
 |200| success|
 |400| failed|
 
+
+### forget password(/forget)
+Send the email address in token and the sever will send the email to the target email account. Even if
+the email address doesn't exists in the database, the message will imply success any way.
+|input|description|
+|:-:|:-:|
+|email|sign-up email address |
+
+|output|description|
+|:-:|:-:|
+|200| success|
 
 
 

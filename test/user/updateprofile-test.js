@@ -35,7 +35,7 @@ module.exports = function(server,should){
 				catch(e){
 					console.log(e.message);
 				}
-			})
+			});
 
 			for (let i=0; i < tc.length; i++){ 
 				tc[i].uid = uid;

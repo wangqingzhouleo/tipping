@@ -1,6 +1,7 @@
 `use strict`
 import UserAuth from './controllers/users.auth';
 import UserProfile from './controllers/user.profile.js';
+import UserPass from './controllers/user.password.js';
 import JwtDecode from '~/JWTDecode'
 
 class User{
@@ -8,6 +9,7 @@ class User{
 		this.profile = new UserProfile();
 		this.auth = {};
 		this.decode = new JwtDecode();
+		this.userPass = new UserPass();
 		if (typeof body.sex != 'undefined') //pass in everthing
 			this.profile = this.profile.initWithDetail(body);
 		else	// pass in auth info
@@ -64,6 +66,25 @@ class User{
 		}, function(){
 			res.status(400).json({"success":0, "message":"error in fields"});
 		});		
+	}
+	forgetPass(token,res){
+		const decode = this.decode.extractPayload(token);
+		if (!decode)
+			return res.status(400).json({"success":0, "message":"token not valid"});
+		this.userPass.forget(decode.email,out =>{
+			if (out.success)
+				if (devMode)
+					res.status(200).json({success:1, message:"email sent if exists",url:out.url});
+				else
+					res.status(200).json({success:1, message:"email sent if exists"});
+			else
+				if (devMode)
+					res.status(400).json({success:0, message:"error"});
+				else				
+					res.status(200).json({success:1, message:"email sent if exists"});			
+		});
+
+
 	}
 }
 
