@@ -91,7 +91,7 @@ class UserPass{
 				const updateSql = "UPDATE `users` SET `password` = '" + 
 					this.saltedHashed(password,res[0].salt) + "', `reset-pass-token-expired` = 0 WHERE `email` = "
 					+ mysql.escape(email) + ";";
-				console.log(updateSql);
+				// console.log(updateSql);
 				this.mySqlModel.query(updateSql,()=>{});
 				callback(false);
 			}

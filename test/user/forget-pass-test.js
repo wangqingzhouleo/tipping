@@ -1,4 +1,5 @@
 `use strict`
+const sha256 = require('sha256');
 const testcases = require('./testCases').testcases;
 import {jwtOptions} from '~/configure.js';
 const jwt = require('jsonwebtoken');
@@ -6,9 +7,36 @@ import JwtDecode from '~/JWTDecode'
 
 module.exports = function(server,should){
 	var pass_test = {};
-	const forget = testcases.forget
+	const forget = testcases.forget;
 
-	pass_test.run = function(){
+	pass_test.runReset = function(){
+		describe("reset password",function(){
+			let pass = forget[0][2];
+			let email = forget[0][0];
+			let hashedPass = sha256(pass);
+			before(function(done){
+				server.post('/reset-password').send({email:email,password:hashedPass})
+				.end(function(err,res){
+					res.status.should.equal(200);
+					done();
+				})
+
+			})
+
+			it("case 0",function(){
+				
+				// console.log(hashedPass);
+				server.post('/login').send({loginInditify:email,password:hashedPass})
+				.end(function(err,res){
+					res.status.should.equal(200);
+					done();
+				})
+			})
+		})
+
+	}
+
+	pass_test.runForget = function(){
 		let url = "";
 		describe("forget password",function(){
 			let index = -1;
@@ -27,7 +55,7 @@ module.exports = function(server,should){
 							url = res.body.url;
 						else
 							url = "some-random-text";
-						console.log(url);
+						// console.log(url);
 						done();
 					})
 				}

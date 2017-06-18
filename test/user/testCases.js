@@ -42,7 +42,7 @@ var testcases = {
 			"displayname":"eric","expect":200}, //invalid birthday 5
 	],
 	"forget":[
-		["wjun0912@gmail.com",200],
+		["wjun0912@gmail.com",200,"1234567"],
 		["wjun09112@gmail.com",400],
 		["123af",400]
 	]
