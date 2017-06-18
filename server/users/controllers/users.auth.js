@@ -80,7 +80,7 @@ class UserAuth {
 		const sql = "SELECT `uid`, `password`, `salt` FROM `users` WHERE `" +  field 
 			+  "` = " + mysql.escape(this.loginInditify) + " LIMIT 1;";
 		const _this = this;
-
+		// console.log(sql);
 		return new Promise(function (resolve,reject){	
 			if (!_this.loginCheckInput()){
 			 	return reject();

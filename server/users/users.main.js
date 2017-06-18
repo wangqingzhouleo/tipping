@@ -49,7 +49,7 @@ class User{
 		if (!decode)
 			return res.status(400).json({"success":0, "message":"token not valid"});
 		const uid = decode.uid;
-		console.log(uid);
+		// console.log(uid);
 		this.profile.getParaFromUid(uid).then(function(out){
 			res.status(200).json({"success":1, "profile":out[0]});
 		}, function(){
@@ -88,7 +88,7 @@ class User{
 		const decode = this.decode.extractPayload(token);
 		if (!decode)
 			return callback(true);
-		console.log(decode);
+		// console.log(decode);
 		this.userPass.isTokenExpired(decode.email,expired=>{
 			callback(expired,decode.email);
 		})
