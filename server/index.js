@@ -1,3 +1,4 @@
+// nothing
 'use strict'
 global.rootRequire = function(name) {
     return require(__dirname + '/' + name);
